@@ -1,1 +1,1 @@
-web: npm start --prefix heroku
+web: npm start
