@@ -2,24 +2,29 @@
   "name": "functions",
   "scripts": {
     "start": "node ./dist/index.js",
-    "build": "babel -d ./dist ./src -s"
+    "build": "babel -d ./dist ./src -s",
+    "dev": "nodemon --exec babel-node src/index.js"
   },
   "engines": {
     "node": "12"
   },
   "main": "index.js",
   "dependencies": {
-    "babel-preset-env": "^1.7.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "firebase": "^7.5.0",
+    "node-fetch": "^2.6.0",
     "passport": "^0.4.0",
     "passport-steam": "^1.0.11"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "dotenv": "8.2.0"
+    "@babel/cli": "7.7.5",
+    "@babel/preset-env": "7.7.6",
+    "@babel/node": "7.7.4",
+    "@babel/core": "7.7.4",
+    "dotenv": "8.2.0",
+    "nodemon": "^2.0.1"
   },
   "private": true
 }

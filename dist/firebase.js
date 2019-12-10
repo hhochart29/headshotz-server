@@ -1,15 +1,13 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.saveUser = saveUser;
 
-var _app = require('firebase/app');
+var _app = _interopRequireDefault(require("firebase/app"));
 
-var _app2 = _interopRequireDefault(_app);
-
-require('firebase/firestore');
+require("firebase/firestore");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21,17 +19,21 @@ const firebaseConfig = {
   storageBucket: 'headshotz-b626f.appspot.com',
   messagingSenderId: '347643097067',
   appId: '1:347643097067:web:6ed9c43b2e5c7fc2b833ae'
+}; // Initialize Firebase
 
-  // Initialize Firebase
-};const app = _app2.default.initializeApp(firebaseConfig);
+const app = _app.default.initializeApp(firebaseConfig);
 
 const getUserRefById = steamId => app.firestore().collection('users').doc(steamId);
 
-async function saveUser({ user }) {
+async function saveUser({
+  user
+}) {
   if (!user) return;
+
   try {
     const userRef = await getUserRefById(user.steamid);
     const userExists = (await userRef.get()).exists;
+
     if (userExists) {
       userRef.update(user);
     } else {
