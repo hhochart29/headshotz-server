@@ -7,8 +7,6 @@ exports.default = void 0;
 
 var _express = require("express");
 
-var _expressSession = _interopRequireDefault(require("express-session"));
-
 var _passportSteam = _interopRequireDefault(require("passport-steam"));
 
 var _passport = _interopRequireDefault(require("passport"));
@@ -17,6 +15,7 @@ var _firebase = require("../firebase");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const SteamRouter = (0, _express.Router)();
 
 _passport.default.serializeUser((user, done) => done(null, user._json));
@@ -31,13 +30,6 @@ _passport.default.use(new _passportSteam.default({
   return done(null, profile);
 }));
 
-const a = process.env.STEAM_API_KEY;
-SteamRouter.use((0, _expressSession.default)({
-  secret: 'HeadshotzSecret',
-  name: 'HZ_SESSION',
-  resave: true,
-  saveUninitialized: true
-}));
 SteamRouter.use(_passport.default.initialize());
 SteamRouter.use(_passport.default.session());
 SteamRouter.get('/login', _passport.default.authenticate('steam', {
@@ -52,7 +44,7 @@ SteamRouter.get('/session', async (req, res) => {
   });
   await (0, _firebase.saveUser)(req.session.passport);
   return res.send({
-    req: req.session && req.session.passport
+    session: req.session.passport
   });
 });
 SteamRouter.get('/logout', (req, res) => {

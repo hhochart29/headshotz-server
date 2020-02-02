@@ -11,9 +11,10 @@ var _nodeFetch = _interopRequireDefault(require("node-fetch"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const CSGORouter = (0, _express.Router)();
 const defaultHeaders = {
-  'TRN-Api-Key': process.envTRACKER_GG_API_KEY
+  'TRN-Api-Key': process.env.TRACKER_GG_API_KEY
 };
 CSGORouter.get('/stats/:steamid([0-9]+)', async (req, res) => {
   if (!req.params.steamid) return res.send({
